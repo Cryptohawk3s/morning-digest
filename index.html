@@ -1,0 +1,135 @@
+<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Утренний дайджест</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body::before{content:"";position:fixed;inset:0;z-index:-1;background:linear-gradient(135deg,#0f0c29 0%,#1a0533 25%,#2d1b69 50%,#0f0c29 100%)}
+.blob{position:fixed;border-radius:50%;filter:blur(80px);opacity:.35;z-index:-1;animation:blobMove 12s ease-in-out infinite alternate}
+.blob1{width:500px;height:500px;background:radial-gradient(circle,#7c3aed,#4f46e5);top:-100px;left:-100px;animation-delay:0s}
+.blob2{width:600px;height:600px;background:radial-gradient(circle,#be185d,#f7971e);bottom:-150px;right:-150px;animation-delay:-4s}
+.blob3{width:400px;height:400px;background:radial-gradient(circle,#0ea5e9,#6366f1);top:40%;left:40%;animation-delay:-8s}
+@keyframes blobMove{0%{transform:translate(0,0) scale(1)}33%{transform:translate(40px,-30px) scale(1.1)}66%{transform:translate(-20px,40px) scale(.95)}100%{transform:translate(30px,20px) scale(1.05)}}
+
+body{min-height:100vh;background:#0f0c29;font-family:-apple-system,BlinkMacSystemFont,sans-serif;color:#fff;padding:28px 20px}
+.header{text-align:center;margin-bottom:36px;animation:fadeInDown .8s ease}
+.greeting{font-size:clamp(22px,4vw,36px);font-weight:700;background:linear-gradient(90deg,#f7971e,#ffd200,#f7971e);background-size:200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:shimmer 3s infinite linear}
+@keyframes shimmer{0%{background-position:0%}100%{background-position:200%}}
+.clock{font-size:clamp(52px,12vw,100px);font-weight:800;letter-spacing:-3px;line-height:1;margin:6px 0 4px;font-variant-numeric:tabular-nums}
+.dateline{font-size:17px;opacity:.55}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:20px;max-width:1200px;margin:0 auto}
+@media(min-width:900px){.wide{grid-column:span 2}}
+.card{background:rgba(255,255,255,.07);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid rgba(255,255,255,.13);border-radius:24px;padding:26px;transition:transform .3s,box-shadow .3s;animation:fadeInUp .6s ease both}
+.card:hover{transform:translateY(-5px);box-shadow:0 24px 60px rgba(0,0,0,.35)}
+.card:nth-child(1){animation-delay:.1s}.card:nth-child(2){animation-delay:.2s}.card:nth-child(3){animation-delay:.3s}.card:nth-child(4){animation-delay:.4s}
+@keyframes fadeInDown{from{opacity:0;transform:translateY(-30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+.card-title{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;opacity:.45;margin-bottom:18px}
+.w-main{display:flex;align-items:center;gap:14px;margin-bottom:14px}.w-emoji{font-size:60px;line-height:1;animation:float 3s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.w-temp{font-size:54px;font-weight:800;line-height:1}.w-desc{font-size:18px;opacity:.8;margin-bottom:3px}.w-city{font-size:13px;opacity:.45}
+.w-details{display:flex;gap:24px;margin-top:14px;padding-top:14px;border-top:1px solid rgba(255,255,255,.1)}
+.w-detail{font-size:12px;opacity:.5}.w-detail b{display:block;font-size:17px;font-weight:700;opacity:1;color:#fff;margin-top:2px}
+.city-tabs{display:flex;gap:8px;margin-bottom:16px}.city-tab{flex:1;padding:7px 4px;border-radius:50px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.07);color:rgba(255,255,255,.6);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;text-align:center}
+.city-tab:hover{background:rgba(255,255,255,.15);color:#fff}.city-tab.active{background:linear-gradient(135deg,#f7971e,#ffd200);border-color:transparent;color:#1a1a1a}
+.btc-icon{font-size:52px;text-align:center;display:block;margin-bottom:10px;animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.09)}}
+.btc-usd{font-size:34px;font-weight:800;text-align:center;background:linear-gradient(90deg,#f7971e,#ffd200);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.btc-rub{font-size:17px;text-align:center;opacity:.55;margin-top:4px}.btc-change{text-align:center;font-size:14px;margin-top:6px;font-weight:600}
+.up{color:#4ecca3}.down{color:#ff6b6b}
+.btc-btn{display:block;margin:16px auto 0;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;padding:8px 22px;border-radius:50px;cursor:pointer;font-size:13px;transition:background .2s}
+.btc-btn:hover{background:rgba(255,255,255,.2)}.btc-time{text-align:center;font-size:11px;opacity:.35;margin-top:8px}
+.rpg-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.rpg-lvl{font-size:15px;font-weight:800;background:linear-gradient(90deg,#a855f7,#f7971e);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.rpg-streak{font-size:13px;opacity:.6}
+.rpg-xp-wrap{background:rgba(255,255,255,.1);border-radius:50px;height:10px;overflow:hidden;margin-bottom:4px}
+.rpg-xp-bar{height:100%;border-radius:50px;background:linear-gradient(90deg,#a855f7,#ec4899,#f7971e);transition:width .6s cubic-bezier(.4,0,.2,1);width:0%}
+.rpg-xp-labels{display:flex;justify-content:space-between;font-size:11px;opacity:.4;margin-bottom:14px}
+.rpg-cats{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+.rpg-cat-btn{padding:6px 14px;border-radius:50px;border:1px solid rgba(255,255,255,.2);background:transparent;color:rgba(255,255,255,.55);font-size:12px;font-weight:600;cursor:pointer;transition:all .2s}
+.rpg-cat-btn:hover{background:rgba(255,255,255,.1);color:#fff}.rpg-cat-btn.active{background:rgba(255,255,255,.15);color:#fff;border-color:rgba(255,255,255,.4)}
+.quest-list{list-style:none;min-height:20px}
+.quest-item{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.06);cursor:pointer;user-select:none;transition:all .3s}
+.quest-item:last-child{border-bottom:none}.quest-item.done{opacity:.3}.quest-item.done .quest-name{text-decoration:line-through}
+.quest-check{width:28px;height:28px;border-radius:50%;border:2px solid rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .3s;font-size:14px}
+.quest-item.done .quest-check{background:linear-gradient(135deg,#a855f7,#f7971e);border-color:transparent}
+.quest-icon{font-size:22px}.quest-info{flex:1}.quest-name{font-size:14px;font-weight:500}.quest-cat-label{font-size:11px;opacity:.4;margin-top:2px}
+.quest-xp{font-size:12px;font-weight:700;color:#f7971e;background:rgba(247,151,30,.12);padding:3px 8px;border-radius:50px;flex-shrink:0;transition:all .3s}
+.quest-item.done .quest-xp{color:#4ecca3;background:rgba(78,204,163,.12)}
+.rpg-footer{display:flex;justify-content:space-between;margin-top:14px;padding-top:14px;border-top:1px solid rgba(255,255,255,.1);font-size:12px;opacity:.5}
+.qmark{font-size:72px;line-height:.4;opacity:.12;font-family:Georgia,serif;display:block;margin-bottom:10px}
+.qtext{font-size:17px;line-height:1.65;font-style:italic;opacity:.9}.qauthor{margin-top:14px;font-size:13px;opacity:.45;text-align:right}
+.sk{background:linear-gradient(90deg,rgba(255,255,255,.07) 25%,rgba(255,255,255,.15) 50%,rgba(255,255,255,.07) 75%);background-size:200%;animation:sk 1.4s infinite;border-radius:8px;height:20px;margin:8px 0}
+@keyframes sk{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.err{color:#ff6b6b;font-size:14px;text-align:center;padding:10px}
+.joke-text{font-size:15px;line-height:1.7;opacity:.9}
+.joke-punchline{margin-top:12px;font-size:16px;font-weight:700;background:linear-gradient(90deg,#f7971e,#ffd200);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.joke-divider{margin:12px 0;border:none;border-top:1px solid rgba(255,255,255,.1)}
+</style></head><body>
+<div class="blob blob1"></div><div class="blob blob2"></div><div class="blob blob3"></div>
+<div class="header"><div class="greeting" id="greeting">Доброе утро</div><div class="clock" id="clock">--:--:--</div><div class="dateline" id="dateline"></div></div>
+<div class="grid">
+<div class="card"><div class="card-title">🌍 Погода</div><div class="city-tabs"><div class="city-tab active" onclick="selectCity(0)">Москва</div><div class="city-tab" onclick="selectCity(1)">Владивосток</div><div class="city-tab" onclick="selectCity(2)">Ставрополь</div></div><div id="wb"><div class="sk" style="height:60px;width:180px"></div><div class="sk" style="width:140px"></div></div></div>
+<div class="card"><div class="card-title">&#8383; Биткоин</div><div id="bb"><div class="sk" style="height:52px"></div><div class="sk" style="width:75%;margin:8px auto"></div></div></div>
+
+  <div class="card">
+    <div class="card-title">😂 Анекдот дня</div>
+    <p class="joke-text" id="joke-setup"></p>
+    <hr class="joke-divider">
+    <p class="joke-punchline" id="joke-punch"></p>
+  </div>
+<div class="card wide"><div class="card-title">⚔️ Квесты дня</div>
+<div class="rpg-top"><span class="rpg-lvl" id="rpg-lvl">⭐ Новичок</span><span class="rpg-streak" id="rpg-streak">🔥 0 дней</span></div>
+<div class="rpg-xp-wrap"><div class="rpg-xp-bar" id="rpg-xp-bar"></div></div>
+<div class="rpg-xp-labels"><span id="rpg-xp-cur">0 XP</span><span id="rpg-xp-max">160 XP</span></div>
+<div class="rpg-cats"><button class="rpg-cat-btn active" onclick="filterCat(this,'all')">Все</button><button class="rpg-cat-btn" onclick="filterCat(this,'body')">💪 Тело</button><button class="rpg-cat-btn" onclick="filterCat(this,'mind')">🧠 Разум</button><button class="rpg-cat-btn" onclick="filterCat(this,'soul')">✨ Душа</button></div>
+<ul class="quest-list" id="quest-list"></ul>
+<div class="rpg-footer"><span id="rpg-done-count">0 / 9 квестов</span><span id="rpg-xp-earned">0 / 160 XP</span></div></div>
+<div class="card"><div class="card-title">💬 Цитата дня</div><span class="qmark">&ldquo;</span><p class="qtext" id="qt"></p><p class="qauthor" id="qa"></p></div>
+</div><script>
+const RUD=["воскресенье","понедельник","вторник","среда","четверг","пятница","суббота"];
+const RUM=["января","февраля","марта","апреля","мая","июня","июля","августа","сентября","октября","ноября","декабря"];
+function tick(){const n=new Date();document.getElementById("clock").textContent=String(n.getHours()).padStart(2,"0")+":"+String(n.getMinutes()).padStart(2,"0")+":"+String(n.getSeconds()).padStart(2,"0");const hr=n.getHours();document.getElementById("greeting").textContent=hr<6?"Доброй ночи 🌙":hr<12?"Доброе утро ☀️":hr<18?"Добрый день 🌤":"Добрый вечер 🌇";document.getElementById("dateline").textContent=RUD[n.getDay()]+", "+n.getDate()+" "+RUM[n.getMonth()]+" "+n.getFullYear();}
+setInterval(tick,1000);tick();
+const WMO={0:["☀️","Ясно"],1:["🌤","Преимущественно ясно"],2:["⛅","Переменная облачность"],3:["☁️","Пасмурно"],45:["🌫️","Туман"],48:["🌫️","Туман"],51:["🌦","Морось"],53:["🌦","Морось"],55:["🌦","Сильная морось"],61:["🌧","Дождь"],63:["🌧","Дождь"],65:["🌧","Сильный дождь"],71:["🌨","Снег"],73:["🌨","Снег"],75:["❄️","Сильный снег"],80:["🌦","Ливень"],81:["🌦","Ливень"],82:["⛈","Сильный ливень"],95:["⛈","Гроза"]};
+const CITIES=[{name:"Москва",lat:55.7558,lon:37.6173},{name:"Владивосток",lat:43.1056,lon:131.8735},{name:"Ставрополь",lat:45.0428,lon:41.9734}];
+let currentCity=parseInt(localStorage.getItem("digest_city")||"0");
+function selectCity(idx){currentCity=idx;localStorage.setItem("digest_city",idx);document.querySelectorAll(".city-tab").forEach((t,i)=>t.classList.toggle("active",i===idx));loadWeather();}
+async function loadWeather(){const el=document.getElementById("wb");el.innerHTML="<div class=\"sk\" style=\"height:60px;width:180px\"></div><div class=\"sk\" style=\"width:140px\"></div>";const city=CITIES[currentCity];try{const res=await fetch("https://api.open-meteo.com/v1/forecast?latitude="+city.lat+"&longitude="+city.lon+"&current=temperature_2m,weathercode,windspeed_10m,relative_humidity_2m&timezone=auto");const w=await res.json();const c=w.current,code=c.weathercode;const [emoji,desc]=WMO[code]||["🌡","Неизвестно"];el.innerHTML="<div class=\"w-main\"><div class=\"w-emoji\">"+emoji+"</div><div><div class=\"w-temp\">"+Math.round(c.temperature_2m)+"°C</div><div class=\"w-desc\">"+desc+"</div><div class=\"w-city\">📍 "+city.name+"</div></div></div><div class=\"w-details\"><div class=\"w-detail\">Влажность<b>"+c.relative_humidity_2m+"%</b></div><div class=\"w-detail\">Ветер<b>"+Math.round(c.windspeed_10m)+" км/ч</b></div></div>";}catch(e){el.innerHTML="<div class=\"err\">Ошибка загрузки погоды</div>";}}
+document.querySelectorAll(".city-tab").forEach((t,i)=>t.classList.toggle("active",i===currentCity));loadWeather();
+async function loadBTC(){const el=document.getElementById("bb");try{const res=await fetch("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd,rub&include_24hr_change=true");const d=await res.json();const usd=d.bitcoin.usd,rub=d.bitcoin.rub,chg=d.bitcoin.usd_24h_change;const sign=chg>=0?"+":"",cls=chg>=0?"up":"down",arr=chg>=0?"▲":"▼";const t=new Date().toLocaleTimeString("ru-RU",{hour:"2-digit",minute:"2-digit"});el.innerHTML="<span class=\"btc-icon\">₿</span><div class=\"btc-usd\">$"+usd.toLocaleString("ru-RU")+"</div><div class=\"btc-rub\">"+Math.round(rub).toLocaleString("ru-RU")+" ₽</div><div class=\"btc-change "+cls+"\">"+arr+" "+sign+chg.toFixed(2)+"% за 24ч</div><button class=\"btc-btn\" onclick=\"loadBTC()\">🔄 Обновить</button><div class=\"btc-time\">Обновлено в "+t+"</div>";}catch(e){el.innerHTML="<div class=\"err\">Ошибка загрузки <button class=\"btc-btn\" onclick=\"loadBTC()\">Повторить</button></div>";}}
+loadBTC();
+const QUESTS=[{icon:"💧",name:"Стакан воды натощак",cat:"body",catName:"💪 Тело",xp:10},{icon:"🏃",name:"Зарядка 15 минут",cat:"body",catName:"💪 Тело",xp:30},{icon:"🚿",name:"Контрастный душ",cat:"body",catName:"💪 Тело",xp:20},{icon:"🌿",name:"Принять витамины",cat:"body",catName:"💪 Тело",xp:10},{icon:"📖",name:"Прочитать 20 страниц",cat:"mind",catName:"🧠 Разум",xp:25},{icon:"📝",name:"3 цели на день",cat:"mind",catName:"🧠 Разум",xp:20},{icon:"🧘",name:"Медитация 5 минут",cat:"mind",catName:"🧠 Разум",xp:20},{icon:"☕",name:"Осознанный кофе",cat:"soul",catName:"✨ Душа",xp:10},{icon:"🙏",name:"3 благодарности",cat:"soul",catName:"✨ Душа",xp:15}];
+function pickQuests(){let rng=new Date().toDateString().split("").reduce((a,c)=>a+c.charCodeAt(0),0);const rand=()=>{rng=(rng*1664525+1013904223)>>>0;return rng/4294967296;};return [...QUESTS].sort(()=>rand()-.5).slice(0,3);}const DAY_QUESTS=pickQuests();const MAX_XP=DAY_QUESTS.reduce((s,q)=>s+q.xp,0);
+const LEVELS=[{min:0,max:39,name:"Новичок",stars:"⭐"},{min:40,max:79,name:"Ученик",stars:"⭐⭐"},{min:80,max:119,name:"Воин",stars:"⭐⭐⭐"},{min:120,max:159,name:"Мастер",stars:"⭐⭐⭐⭐"},{min:160,max:999,name:"Легенда 🔥",stars:"⭐⭐⭐⭐⭐"}];
+const TODAY=new Date().toDateString();
+let qsaved=JSON.parse(localStorage.getItem("digest_quest")||"{}");
+if(qsaved.date!==TODAY){const yest=new Date();yest.setDate(yest.getDate()-1);const streak=qsaved.date===yest.toDateString()?(qsaved.streak||0)+1:1;qsaved={date:TODAY,done:[],streak,filter:"all"};}
+let curFilter=qsaved.filter||"all";
+function getXP(){return QUESTS.filter((_,i)=>qsaved.done.includes(i)).reduce((s,q)=>s+q.xp,0);}
+function getLevel(xp){return LEVELS.find(l=>xp>=l.min&&xp<=l.max)||LEVELS[0];}
+function renderQuests(){const xp=getXP();const lvl=getLevel(xp);const pct=Math.round(xp/MAX_XP*100);document.getElementById("rpg-xp-bar").style.width=pct+"%";document.getElementById("rpg-xp-cur").textContent=xp+" XP";document.getElementById("rpg-lvl").textContent=lvl.stars+" "+lvl.name;const s=qsaved.streak||1;document.getElementById("rpg-streak").textContent="🔥 "+s+" "+(s===1?"день":s<5?"дня":"дней");document.getElementById("rpg-done-count").textContent=qsaved.done.length+" / "+DAY_QUESTS.length+" квестов";document.getElementById("rpg-xp-earned").textContent=xp+" / "+MAX_XP+" XP 🏆";
+const ul=document.getElementById("quest-list");ul.innerHTML="";DAY_QUESTS.forEach((q,i)=>{if(curFilter!=="all"&&q.cat!==curFilter)return;const done=qsaved.done.includes(i);const li=document.createElement("li");li.className="quest-item"+(done?" done":"");li.innerHTML="<div class=\"quest-check\">"+(done?"✓":"")+"</div><span class=\"quest-icon\">"+q.icon+"</span><div class=\"quest-info\"><div class=\"quest-name\">"+q.name+"</div><div class=\"quest-cat-label\">"+q.catName+"</div></div><span class=\"quest-xp\">+"+q.xp+" XP</span>";li.onclick=()=>{if(done)qsaved.done=qsaved.done.filter(x=>x!==i);else qsaved.done.push(i);qsaved.filter=curFilter;localStorage.setItem("digest_quest",JSON.stringify(qsaved));renderQuests();};ul.appendChild(li);});}
+function filterCat(btn,cat){curFilter=cat;qsaved.filter=cat;localStorage.setItem("digest_quest",JSON.stringify(qsaved));document.querySelectorAll(".rpg-cat-btn").forEach(b=>b.classList.remove("active"));btn.classList.add("active");renderQuests();}
+document.querySelectorAll(".rpg-cat-btn").forEach(b=>{if(b.textContent.trim().includes(curFilter)||curFilter==="all"&&b.textContent.trim()==="Все")b.classList.add("active");else b.classList.remove("active");});
+renderQuests();
+
+const JOKES=[
+  {setup:"Программист идёт в магазин. Жена просит: — Купи буханку хлеба, и если будут яйца — возьми десяток.",punchline:"Он вернулся с десятью буханками хлеба. Яйца были."},
+  {setup:"Встречаются два программиста. Один другому: — Слушай, ты код дописал?",punchline:"— Нет, но я его очень качественно прокомментировал."},
+  {setup:"Начальник спрашивает программиста: — Почему ты всегда всё делаешь в последний момент?",punchline:"— Я оптимизирую процесс. Зачем делать заранее то, что могут отменить."},
+  {setup:"— Доктор, я не сплю ночами, всё время думаю о работе...",punchline:"— Это профессиональная болезнь. — А как называется? — Трудоголизм. — А у программистов? — Баг в продакшне."},
+  {setup:"Жена программиста в 3 ночи: — Ты опять за компьютером? Иди спать! Программист:",punchline:"— Не могу. Кто-то неправильно написал код в интернете."},
+  {setup:"— Что нужно, чтобы стать хорошим программистом? — Любовь к деталям.",punchline:"— А что нужно, чтобы стать великим программистом? — Нелюбовь к деталям и хорошая команда."},
+  {setup:"Пессимист говорит: стакан наполовину пуст. Оптимист говорит: стакан наполовину полон.",punchline:"Программист говорит: стакан в два раза больше, чем нужно."},
+  {setup:"— Почему программисты путают Хэллоуин и Рождество?",punchline:"— Потому что Oct 31 == Dec 25."},
+  {setup:"Рекрутер на собеседовании: — Расскажите о вашем главном недостатке. Программист:",punchline:"— Иногда я слишком честен. — Я не думаю, что это недостаток. — Мне всё равно, что вы думаете."},
+  {setup:"— Как называют программиста, который не читает документацию?",punchline:"— Старший разработчик."},
+  {setup:"Менеджер программисту: — Сделай так, чтобы кнопка была больше! Программист:",punchline:"— Я уменьшил экран. Теперь кнопка занимает 40% пространства."},
+  {setup:"— Почему программисты предпочитают тёмную тему?",punchline:"— Потому что баги боятся темноты."},
+  {setup:"Встречаются два джуна. Один говорит: — Я вчера за 10 минут написал 300 строк кода!",punchline:"— Круто! А что он делает? — Пока не знаю, но выглядит убедительно."},
+  {setup:"— Что общего между программистами и котами?",punchline:"— Оба мяукают когда что-то не работает, и оба игнорируют хозяина когда всё работает."}
+];
+const dayNum=Math.floor(Date.now()/86400000);
+const joke=JOKES[dayNum%JOKES.length];
+document.getElementById("joke-setup").textContent=joke.setup;
+document.getElementById("joke-punch").textContent=joke.punchline;
+
+const QUOTES=[{text:"Каждое утро мы рождаемся заново. То, что мы делаем сегодня, важнее всего.",author:"— Будда"},{text:"Успех — это сумма маленьких усилий, повторяемых изо дня в день.",author:"— Роберт Коллиер"},{text:"Не жди. Времени никогда не будет в самый раз.",author:"— Наполеон Хилл"},{text:"Делай что можешь, с тем что имеешь, там где ты есть.",author:"— Теодор Рузвельт"},{text:"Человек, который осмеливается тратить впустую один час времени, ещё не научился ценить жизнь.",author:"— Чарльз Дарвин"},{text:"Либо вы управляете своим днём, либо день управляет вами.",author:"— Джим Рон"},{text:"Победитель — это обычный человек с лазерной сосредоточенностью.",author:"— Брюс Ли"}];
+const q=QUOTES[new Date().getDay()];document.getElementById("qt").textContent=q.text;document.getElementById("qa").textContent=q.author;
+</script></body></html>
