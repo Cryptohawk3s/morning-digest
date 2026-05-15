@@ -57,6 +57,28 @@ body{min-height:100vh;background:#0f0c29;font-family:-apple-system,BlinkMacSyste
 .sk{background:linear-gradient(90deg,rgba(255,255,255,.07) 25%,rgba(255,255,255,.15) 50%,rgba(255,255,255,.07) 75%);background-size:200%;animation:sk 1.4s infinite;border-radius:8px;height:20px;margin:8px 0}
 @keyframes sk{0%{background-position:200% 0}100%{background-position:-200% 0}}
 .err{color:#ff6b6b;font-size:14px;text-align:center;padding:10px}
+
+.event-item{display:flex;gap:12px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.07);cursor:pointer;text-decoration:none;color:inherit;transition:opacity .2s}
+.event-item:hover{opacity:.7}
+.event-item:last-child{border-bottom:none}
+.event-thumb{width:68px;height:68px;border-radius:12px;object-fit:cover;flex-shrink:0;background:rgba(255,255,255,.07)}
+.event-thumb-ph{width:68px;height:68px;border-radius:12px;background:rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0}
+.event-body{flex:1;min-width:0}
+.event-title{font-size:13px;font-weight:600;line-height:1.35;margin-bottom:5px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.event-date{font-size:11px;opacity:.45}
+.afisha-src{text-align:center;font-size:11px;opacity:.3;margin-top:12px}
+
+
+.fx-row{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.07)}
+.fx-row:last-of-type{border-bottom:none}
+.fx-flag{font-size:28px;margin-right:12px}
+.fx-info{flex:1}
+.fx-name{font-size:13px;opacity:.5;margin-bottom:2px}
+.fx-rate{font-size:28px;font-weight:800;line-height:1}
+.fx-rub{font-size:13px;opacity:.5}
+.fx-change{font-size:13px;font-weight:600;text-align:right}
+.fx-date{text-align:center;font-size:11px;opacity:.35;margin-top:14px}
+
 .joke-text{font-size:15px;line-height:1.7;opacity:.9}
 .joke-punchline{margin-top:12px;font-size:16px;font-weight:700;background:linear-gradient(90deg,#f7971e,#ffd200);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .joke-divider{margin:12px 0;border:none;border-top:1px solid rgba(255,255,255,.1)}
@@ -67,6 +89,7 @@ body{min-height:100vh;background:#0f0c29;font-family:-apple-system,BlinkMacSyste
 <div class="card"><div class="card-title">🌍 Погода</div><div class="city-tabs"><div class="city-tab active" onclick="selectCity(0)">Москва</div><div class="city-tab" onclick="selectCity(1)">Владивосток</div><div class="city-tab" onclick="selectCity(2)">Ставрополь</div></div><div id="wb"><div class="sk" style="height:60px;width:180px"></div><div class="sk" style="width:140px"></div></div></div>
 <div class="card"><div class="card-title">&#8383; Биткоин</div><div id="bb"><div class="sk" style="height:52px"></div><div class="sk" style="width:75%;margin:8px auto"></div></div></div>
 
+<div class="card"><div class="card-title">💱 Курс валют</div><div id="fxb"><div class="sk" style="height:44px"></div><div class="sk" style="height:44px;margin-top:8px"></div></div></div>
   <div class="card">
     <div class="card-title">😂 Анекдот дня</div>
     <p class="joke-text" id="joke-setup"></p>
@@ -81,6 +104,11 @@ body{min-height:100vh;background:#0f0c29;font-family:-apple-system,BlinkMacSyste
 <ul class="quest-list" id="quest-list"></ul>
 <div class="rpg-footer"><span id="rpg-done-count">0 / 9 квестов</span><span id="rpg-xp-earned">0 / 160 XP</span></div></div>
 <div class="card"><div class="card-title">💬 Цитата дня</div><span class="qmark">&ldquo;</span><p class="qtext" id="qt"></p><p class="qauthor" id="qa"></p></div>
+
+  <div class="card wide">
+    <div class="card-title">🎭 Афиша — <span id="afisha-city-name">Ставрополь</span></div>
+    <div id="afisha-body"><div class="sk" style="height:68px"></div><div class="sk" style="height:68px;margin-top:8px"></div><div class="sk" style="height:68px;margin-top:8px"></div></div>
+  </div>
 </div><script>
 const RUD=["воскресенье","понедельник","вторник","среда","четверг","пятница","суббота"];
 const RUM=["января","февраля","марта","апреля","мая","июня","июля","августа","сентября","октября","ноября","декабря"];
@@ -89,9 +117,118 @@ setInterval(tick,1000);tick();
 const WMO={0:["☀️","Ясно"],1:["🌤","Преимущественно ясно"],2:["⛅","Переменная облачность"],3:["☁️","Пасмурно"],45:["🌫️","Туман"],48:["🌫️","Туман"],51:["🌦","Морось"],53:["🌦","Морось"],55:["🌦","Сильная морось"],61:["🌧","Дождь"],63:["🌧","Дождь"],65:["🌧","Сильный дождь"],71:["🌨","Снег"],73:["🌨","Снег"],75:["❄️","Сильный снег"],80:["🌦","Ливень"],81:["🌦","Ливень"],82:["⛈","Сильный ливень"],95:["⛈","Гроза"]};
 const CITIES=[{name:"Москва",lat:55.7558,lon:37.6173},{name:"Владивосток",lat:43.1056,lon:131.8735},{name:"Ставрополь",lat:45.0428,lon:41.9734}];
 let currentCity=parseInt(localStorage.getItem("digest_city")||"0");
-function selectCity(idx){currentCity=idx;localStorage.setItem("digest_city",idx);document.querySelectorAll(".city-tab").forEach((t,i)=>t.classList.toggle("active",i===idx));loadWeather();}
+function selectCity(idx){currentCity=idx;localStorage.setItem("digest_city",idx);document.querySelectorAll(".city-tab").forEach((t,i)=>t.classList.toggle("active",i===idx));loadWeather();loadAfisha();}
 async function loadWeather(){const el=document.getElementById("wb");el.innerHTML="<div class=\"sk\" style=\"height:60px;width:180px\"></div><div class=\"sk\" style=\"width:140px\"></div>";const city=CITIES[currentCity];try{const res=await fetch("https://api.open-meteo.com/v1/forecast?latitude="+city.lat+"&longitude="+city.lon+"&current=temperature_2m,weathercode,windspeed_10m,relative_humidity_2m&timezone=auto");const w=await res.json();const c=w.current,code=c.weathercode;const [emoji,desc]=WMO[code]||["🌡","Неизвестно"];el.innerHTML="<div class=\"w-main\"><div class=\"w-emoji\">"+emoji+"</div><div><div class=\"w-temp\">"+Math.round(c.temperature_2m)+"°C</div><div class=\"w-desc\">"+desc+"</div><div class=\"w-city\">📍 "+city.name+"</div></div></div><div class=\"w-details\"><div class=\"w-detail\">Влажность<b>"+c.relative_humidity_2m+"%</b></div><div class=\"w-detail\">Ветер<b>"+Math.round(c.windspeed_10m)+" км/ч</b></div></div>";}catch(e){el.innerHTML="<div class=\"err\">Ошибка загрузки погоды</div>";}}
 document.querySelectorAll(".city-tab").forEach((t,i)=>t.classList.toggle("active",i===currentCity));loadWeather();
+
+async function loadFX(){
+  const el=document.getElementById("fxb");
+  try{
+    const res=await fetch("https://www.cbr-xml-daily.ru/daily_json.js");
+    const d=await res.json();
+    const usd=d.Valute.USD, eur=d.Valute.EUR;
+    const date=new Date(d.Date).toLocaleDateString("ru-RU",{day:"numeric",month:"long"});
+    function row(flag,code,name,val,prev){
+      const diff=val-prev, sign=diff>=0?"+":"", cls=diff>=0?"up":"down", arr=diff>=0?"▲":"▼";
+      return '<div class="fx-row">'
+        +'<span class="fx-flag">'+flag+'</span>'
+        +'<div class="fx-info"><div class="fx-name">'+name+'</div>'
+        +'<div class="fx-rate">'+val.toFixed(2)+' <span class="fx-rub">₽</span></div></div>'
+        +'<div class="fx-change '+cls+'">'+arr+' '+sign+diff.toFixed(2)+'</div>'
+        +'</div>';
+    }
+    el.innerHTML=row("🇺🇸","USD","Доллар США",usd.Value,usd.Previous)
+      +row("🇪🇺","EUR","Евро",eur.Value,eur.Previous)
+      +'<div class="fx-date">ЦБ РФ на '+date+'</div>';
+  }catch(e){
+    el.innerHTML='<div class="err">Ошибка загрузки курсов</div>';
+  }
+}
+loadFX();
+
+async function loadAfishaMsk(el){
+  const now=Math.floor(Date.now()/1000);
+  const apiUrl="https://kudago.com/public-api/v1.4/events/?lang=ru&fields=id,title,dates,images,categories&actual_since="+now+"&location=msk&page_size=5&order_by=-publication_date";
+  const res=await fetch("https://api.codetabs.com/v1/proxy/?quest="+encodeURIComponent(apiUrl));
+  const d=await res.json();
+  const cats={"cinema":"🎬","concert":"🎵","theatre":"🎭","exhibition":"🖼","festival":"🎪","other":"🎉"};
+  let out="";
+  d.results.forEach(ev=>{
+    const title=ev.title;
+    const img=ev.images&&ev.images[0]?'<img class="event-thumb" src="'+ev.images[0].image+'" loading="lazy">'
+      :'<div class="event-thumb-ph">'+(cats[ev.categories[0]]||"🎭")+"</div>";
+    const dateTs=ev.dates&&ev.dates[0]?ev.dates[0].start:null;
+    const dt=dateTs?new Date(dateTs*1000).toLocaleDateString("ru-RU",{day:"numeric",month:"long"}):"";
+    const link="https://kudago.com/msk/event/"+ev.id+"/";
+    out+='<a class="event-item" href="'+link+'" target="_blank">'+img+'<div class="event-body"><div class="event-title">'+title+'</div><div class="event-date">📅 '+dt+"</div></div></a>";
+  });
+  el.innerHTML=out+'<div class="afisha-src">📢 <a href="https://kudago.com/msk/" target="_blank" style="color:inherit;opacity:.5">kudago.com</a></div>';
+}
+
+
+async function loadAfishaVdk(el){
+  const res=await fetch("https://api.codetabs.com/v1/proxy/?quest="+encodeURIComponent("https://www.vl.ru/afisha/vladivostok"));
+  const text=await res.text();
+  const parser=new DOMParser();
+  const doc=parser.parseFromString(text,"text/html");
+  const items=[...doc.querySelectorAll("li.event-list__item")].slice(0,5);
+  if(!items.length){el.innerHTML="<div class='err'>Нет событий</div>";return;}
+  let out="";
+  items.forEach(item=>{
+    const a=item.querySelector("a[href*='/event/']");
+    if(!a)return;
+    const link="https://www.vl.ru"+a.getAttribute("href").split("?")[0];
+    const img=item.querySelector("img[data-src]");
+    const title=img?img.getAttribute("alt"):"";
+    const src=img?img.getAttribute("data-src"):"";
+    const dateEl=item.querySelector(".event-list__item-date");
+    const dt=dateEl?dateEl.textContent.trim():"";
+    const imgHtml=src?"<img class='event-thumb' src='"+src+"' loading='lazy'>":"<div class='event-thumb-ph'>🎭</div>";
+    out+="<a class='event-item' href='"+link+"' target='_blank'>"+imgHtml+"<div class='event-body'><div class='event-title'>"+title+"</div><div class='event-date'>📅 "+dt+"</div></div></a>";
+  });
+  el.innerHTML=out+"<div class='afisha-src'>📢 <a href='https://www.vl.ru/afisha/vladivostok' target='_blank' style='color:inherit;opacity:.5'>vl.ru/afisha</a></div>";
+}
+
+async function loadAfishaStvr(el){
+  const res=await fetch("https://api.codetabs.com/v1/proxy/?quest=https://t.me/s/afisha_pro_stavropol");
+  const html=await res.text();
+  const parser=new DOMParser();
+  const doc=parser.parseFromString(html,"text/html");
+  const msgs=[...doc.querySelectorAll(".tgme_widget_message")].slice(-5).reverse();
+  if(!msgs.length){el.innerHTML='<div class="err">Нет событий</div>';return;}
+  let out="";
+  msgs.forEach(msg=>{
+    const postId=msg.getAttribute("data-post")||"";
+    const link="https://t.me/"+postId;
+    const textEl=msg.querySelector(".tgme_widget_message_text");
+    if(!textEl)return;
+    const rawText=textEl.textContent.trim();
+    if(!rawText)return;
+    const title=rawText.slice(0,120)+(rawText.length>120?"...":"");
+    const timeEl=msg.querySelector("time");
+    const dt=timeEl?new Date(timeEl.getAttribute("datetime")).toLocaleDateString("ru-RU",{day:"numeric",month:"long"}):"";
+    const imgEl=msg.querySelector(".tgme_widget_message_photo_wrap");
+    let imgHtml="";
+    if(imgEl){const bg=imgEl.getAttribute("style")||"";const m=bg.match(/url\(['"](https:\/\/[^'"]+)['"]/);if(m)imgHtml='<img class="event-thumb" src="'+m[1]+'" loading="lazy">';}
+    if(!imgHtml){const em=rawText.match(/^(\p{Emoji})/u);imgHtml='<div class="event-thumb-ph">'+(em?em[1]:"🎭")+"</div>";}
+    out+='<a class="event-item" href="'+link+'" target="_blank">'+imgHtml+'<div class="event-body"><div class="event-title">'+title+'</div><div class="event-date">📅 '+dt+"</div></div></a>";
+  });
+  el.innerHTML=out+'<div class="afisha-src">📢 <a href="https://t.me/afisha_pro_stavropol" target="_blank" style="color:inherit;opacity:.5">@afisha_pro_stavropol</a></div>';
+}
+
+async function loadAfisha(){
+  const el=document.getElementById("afisha-body");
+  const nameEl=document.getElementById("afisha-city-name");
+  el.innerHTML='<div class="sk" style="height:68px"></div><div class="sk" style="height:68px;margin-top:8px"></div><div class="sk" style="height:68px;margin-top:8px"></div>';
+  try{
+    if(currentCity===0){nameEl.textContent="Москва";await loadAfishaMsk(el);}
+    else if(currentCity===2){nameEl.textContent="Ставрополь";await loadAfishaStvr(el);}
+    else if(currentCity===1){nameEl.textContent="Владивосток";await loadAfishaVdk(el);}
+  }catch(e){el.innerHTML='<div class="err">Не удалось загрузить афишу</div>';}
+}
+loadAfisha();
+
+
 async function loadBTC(){const el=document.getElementById("bb");try{const res=await fetch("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd,rub&include_24hr_change=true");const d=await res.json();const usd=d.bitcoin.usd,rub=d.bitcoin.rub,chg=d.bitcoin.usd_24h_change;const sign=chg>=0?"+":"",cls=chg>=0?"up":"down",arr=chg>=0?"▲":"▼";const t=new Date().toLocaleTimeString("ru-RU",{hour:"2-digit",minute:"2-digit"});el.innerHTML="<span class=\"btc-icon\">₿</span><div class=\"btc-usd\">$"+usd.toLocaleString("ru-RU")+"</div><div class=\"btc-rub\">"+Math.round(rub).toLocaleString("ru-RU")+" ₽</div><div class=\"btc-change "+cls+"\">"+arr+" "+sign+chg.toFixed(2)+"% за 24ч</div><button class=\"btc-btn\" onclick=\"loadBTC()\">🔄 Обновить</button><div class=\"btc-time\">Обновлено в "+t+"</div>";}catch(e){el.innerHTML="<div class=\"err\">Ошибка загрузки <button class=\"btc-btn\" onclick=\"loadBTC()\">Повторить</button></div>";}}
 loadBTC();
 const QUESTS=[{icon:"💧",name:"Стакан воды натощак",cat:"body",catName:"💪 Тело",xp:10},{icon:"🏃",name:"Зарядка 15 минут",cat:"body",catName:"💪 Тело",xp:30},{icon:"🚿",name:"Контрастный душ",cat:"body",catName:"💪 Тело",xp:20},{icon:"🌿",name:"Принять витамины",cat:"body",catName:"💪 Тело",xp:10},{icon:"📖",name:"Прочитать 20 страниц",cat:"mind",catName:"🧠 Разум",xp:25},{icon:"📝",name:"3 цели на день",cat:"mind",catName:"🧠 Разум",xp:20},{icon:"🧘",name:"Медитация 5 минут",cat:"mind",catName:"🧠 Разум",xp:20},{icon:"☕",name:"Осознанный кофе",cat:"soul",catName:"✨ Душа",xp:10},{icon:"🙏",name:"3 благодарности",cat:"soul",catName:"✨ Душа",xp:15}];
